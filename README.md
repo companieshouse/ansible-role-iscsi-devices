@@ -23,7 +23,7 @@ An [Ansible Galaxy](https://galaxy.ansible.com/) role for configuring iSCSI devi
 
 ## iSCSI Devices
 
-iSCSI devices are configured using a combination of the `iscsi_devices` group (or host) variable and external configuration stored in Hashicorp Vault (internally known by the host fact named `iscsi_vault_config`).
+iSCSI devices are configured using a combination of the `iscsi_devices` group/host variable and external configuration stored in Hashicorp Vault (internally known by the host fact named `iscsi_vault_config`).
 
 ---
 
