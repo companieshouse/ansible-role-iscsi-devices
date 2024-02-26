@@ -88,7 +88,7 @@ To provision a remote host with this role a second time, accepting the potential
       roles:
         - role: iscsi-devices
           vars:
-            vault_path: /example/path/iscsi
+            iscsi_devices_vault_path: /example/path/iscsi
 ```
 
 ## License
