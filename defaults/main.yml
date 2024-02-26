@@ -1,0 +1,4 @@
+---
+
+role_lock_file_path: /etc/ansible-role-iscsi-devices-provisioned
+
