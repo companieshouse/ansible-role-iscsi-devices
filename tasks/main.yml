@@ -14,14 +14,14 @@
 
 - name: Retrieve iSCSI device config from Hashicorp Vault
   set_fact:
-    iscsi_vault_config: "{{ lookup('community.hashi_vault.hashi_vault', vault_path) }}"
+    iscsi_devices_vault_config: "{{ lookup('community.hashi_vault.hashi_vault', iscsi_devices_vault_path) }}"
 
 - name: Check iSCSI device WWIDs are present in Hashicorp Vault
   assert:
     that:
-      - iscsi_vault_config[ansible_hostname]['iscsi_device_wwids'][device.alias] is defined and iscsi_vault_config[ansible_hostname]['iscsi_device_wwids'][device.alias] | length > 0
+      - iscsi_devices_vault_config[ansible_hostname]['iscsi_device_wwids'][device.alias] is defined and iscsi_devices_vault_config[ansible_hostname]['iscsi_device_wwids'][device.alias] | length > 0
     msg: "Missing Hashicorp Vault iSCSI device WWID for host '{{ ansible_hostname }}' and device '{{ device.alias }}'"
-  loop: "{{ iscsi_devices }}"
+  loop: "{{ iscsi_devices_config }}"
   loop_control:
     loop_var: device
 
@@ -29,21 +29,21 @@
   assert:
     that:
       - device.filesystem is defined or device.raw_character_device_path is defined
-    msg: "Each element in list iscsi_devices must contain a 'filesystem' or 'raw_character_device_path' atribute"
-  loop: "{{ iscsi_devices }}"
+    msg: "Each element in list iscsi_devices_config must contain a 'filesystem' or 'raw_character_device_path' atribute"
+  loop: "{{ iscsi_devices_config }}"
   loop_control:
     loop_var: device
 
 - name: Check iSCSI initiator name is present in Hashicorp Vault
   assert:
     that:
-      - iscsi_vault_config[ansible_hostname]['iscsi_initiator_name'] is defined and iscsi_vault_config[ansible_hostname]['iscsi_initiator_name'] | trim | length > 0
+      - iscsi_devices_vault_config[ansible_hostname]['iscsi_initiator_name'] is defined and iscsi_devices_vault_config[ansible_hostname]['iscsi_initiator_name'] | trim | length > 0
     msg: "Missing Hashicorp Vault iSCSI initiator name for host '{{ ansible_hostname }}'"
 
 - name: Check iSCSI portal IPs are present in Hashicorp Vault
   assert:
     that:
-      - iscsi_vault_config[ansible_hostname]['iscsi_portal_ips'] is defined and iscsi_vault_config[ansible_hostname]['iscsi_portal_ips'] | length > 0
+      - iscsi_devices_vault_config[ansible_hostname]['iscsi_portal_ips'] is defined and iscsi_devices_vault_config[ansible_hostname]['iscsi_portal_ips'] | length > 0
     msg: "Missing Hashicorp Vault iSCSI portal IPs for host '{{ ansible_hostname }}'"
 
 - import_tasks: discovery.yml
@@ -53,7 +53,7 @@
 - import_tasks: udev.yml
 
 - include_tasks: filesystem.yml
-  loop: "{{ iscsi_devices | selectattr('filesystem', 'defined') | list }}"
+  loop: "{{ iscsi_devices_config | selectattr('filesystem', 'defined') | list }}"
   loop_control:
     loop_var: device
 

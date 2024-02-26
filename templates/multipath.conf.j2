@@ -4,9 +4,9 @@ defaults {
 }
 
 multipaths {
-    {% for device in iscsi_devices %}
+    {% for device in iscsi_devices_config %}
     multipath {
-        wwid    {{ iscsi_vault_config[ansible_hostname]['iscsi_device_wwids'][device.alias] }}
+        wwid    {{ iscsi_devices_vault_config[ansible_hostname]['iscsi_device_wwids'][device.alias] }}
         alias	{{ device.alias }}  
     }
     {% endfor %}

@@ -12,6 +12,6 @@
   command:
     cmd: "{{ item }}"
   loop:
-    - iscsiadm --mode discovery --op update --type sendtargets --portal {{ iscsi_vault_config[ansible_hostname]['iscsi_portal_ips'][0] }}
+    - iscsiadm --mode discovery --op update --type sendtargets --portal {{ iscsi_devices_vault_config[ansible_hostname]['iscsi_portal_ips'][0] }}
     - iscsiadm --mode node -l all
     - iscsiadm -m session --rescan

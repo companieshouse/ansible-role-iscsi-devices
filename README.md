@@ -23,11 +23,11 @@ An [Ansible Galaxy](https://galaxy.ansible.com/) role for configuring iSCSI devi
 
 ## iSCSI Devices
 
-iSCSI devices are configured using a combination of the `iscsi_devices` group/host variable and external configuration stored in Hashicorp Vault (internally known by the host fact named `iscsi_vault_config`).
+iSCSI devices are configured using a combination of the `iscsi_devices_config` group/host variable and external configuration stored in Hashicorp Vault (internally known by the host fact named `iscsi_devices_vault_config`).
 
 ---
 
-The `iscsi_devices` variable should be defined as a list of dictionaries, each of which supports the following parameters:
+The `iscsi_devices_config` variable should be defined as a list of dictionaries, each of which supports the following parameters:
 
 | Name                        | Default | Description                                                                           |
 |-----------------------------|---------|---------------------------------------------------------------------------------------|
@@ -37,7 +37,7 @@ The `iscsi_devices` variable should be defined as a list of dictionaries, each o
 
 ---
 
-The internal host fact `iscsi_vault_config` is set during execution of this role, and its value is retrieved from Hashicorp Vault using the path specified by the mandatory role variable `vault_path`. This configuration takes the form of a JSON object with the following attributes:
+The internal host fact `iscsi_devices_vault_config` is set during execution of this role, and its value is retrieved from Hashicorp Vault using the path specified by the mandatory role variable `iscsi_devices_vault_path`. This configuration takes the form of a JSON object with the following attributes:
 
 ```json
 {
