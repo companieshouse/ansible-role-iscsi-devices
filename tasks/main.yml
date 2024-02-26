@@ -5,7 +5,7 @@
 
 - name: Check for presence of role lock file
   stat:
-    path: "{{ role_lock_file_path }}"
+    path: "{{ iscsi_devices_role_lock_file_path }}"
   register: lock_result
 
 - fail:
@@ -60,7 +60,7 @@
 - name: Create role lock file
   copy:
     content: "{{ ansible_date_time.iso8601 }} : Provisioned by 'ansible-role-iscsi-devices' role\n"
-    dest: "{{ role_lock_file_path }}"
+    dest: "{{ iscsi_devices_role_lock_file_path }}"
     owner: root
     group: root
     mode: 0444

@@ -70,7 +70,7 @@ If defined, the _optional_ `filesystem` parameter requires the following:
 To provision a remote host with this role a second time, accepting the potential risk of data loss:
 
 * Stop any active processes on the remote host(s) that may be using the storage device(s)
-* Remove the corresponding lock file from remote host(s) at `/etc/ansible-role-iscsi-devices-provisioned`
+* Remove the corresponding lock file from remote host(s) (refer to role variable `iscsi_devices_role_lock_file_path` for the absolute path)
 * Rerun this role against the same host(s)
 
 ## Example Requirements File
