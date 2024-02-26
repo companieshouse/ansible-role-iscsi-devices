@@ -27,7 +27,7 @@ iSCSI devices are configured using a combination of the `iscsi_devices` group (o
 
 ---
 
-The `iscsi_devices` variable shoulbe be defined as a list of dictionaries, each of which supports the following parameters:
+The `iscsi_devices` variable should be defined as a list of dictionaries, each of which supports the following parameters:
 
 | Name                        | Default | Description                                                                           |
 |-----------------------------|---------|---------------------------------------------------------------------------------------|
