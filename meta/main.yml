@@ -1,0 +1,14 @@
+dependencies: []
+
+galaxy_info:
+  author: Companies House
+  description: Provision iSCSI devices, including scanning for targets, configuring multipath and udev rules, creating raw character device nodes, and optionally creating filesystems
+  license: MIT
+  min_ansible_version: 2.9.10
+  platforms:
+    - name: EL
+      versions:
+        - 7
+        - 8
+  galaxy_tags:
+    - iscsi
