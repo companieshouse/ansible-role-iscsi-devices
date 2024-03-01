@@ -9,7 +9,7 @@
     mode: 0600
     trim_blocks: no
   vars:
-    devices: "{{ iscsi_devices_config | selectattr('raw_character_device_path', 'defined') | list }}"
+    devices: "{{ iscsi_devices_config | selectattr('raw_character_device', 'defined') | list }}"
   notify:
     - Replay kernel device events
   
@@ -18,8 +18,8 @@
 
 - name: Check state of raw character device nodes
   stat:
-    path: "{{ device.raw_character_device_path }}"
-  loop: "{{ iscsi_devices_config | selectattr('raw_character_device_path', 'defined') | list }}"
+    path: "{{ device.raw_character_device.path }}"
+  loop: "{{ iscsi_devices_config | selectattr('raw_character_device', 'defined') | list }}"
   loop_control:
     loop_var: device
   register: character_device_nodes
@@ -38,7 +38,7 @@
 - name: Check state of raw character device symbolic links
   stat:
     path: "/dev/{{ device.alias }}"
-  loop: "{{ iscsi_devices_config | selectattr('raw_character_device_path', 'defined') | list }}"
+  loop: "{{ iscsi_devices_config | selectattr('raw_character_device', 'defined') | list }}"
   loop_control:
     loop_var: device
   register: character_device_symbolic_links

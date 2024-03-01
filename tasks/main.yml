@@ -28,8 +28,8 @@
 - name: Check iSCSI device configuration contains filesystem or raw character device setting
   assert:
     that:
-      - device.filesystem is defined or device.raw_character_device_path is defined
-    msg: "Each element in list iscsi_devices_config must contain a 'filesystem' or 'raw_character_device_path' atribute"
+      - device.filesystem is defined or device.raw_character_device is defined
+    msg: "Each element in list iscsi_devices_config must contain a 'filesystem' or 'raw_character_device' atribute"
   loop: "{{ iscsi_devices_config }}"
   loop_control:
     loop_var: device
