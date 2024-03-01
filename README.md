@@ -60,8 +60,8 @@ If defined, the _optional_ `filesystem` parameter requires the following:
 | Name         | Default | Description                                                                           |
 |--------------|---------|---------------------------------------------------------------------------------------|
 | `group`      |         | The group to be used for ownership of the filesystem mount path.                      |
-| `mount_path` |         | The path where the filesystem will be mounted. This path will be created if it does not already exist. |
 | `mode`       |         | The mode to be used for permissions fo the filesystem mount path.                     |
+| `path`       |         | The path where the filesystem will be mounted. This path will be created if it does not already exist. |
 | `type`       |         | The filesystem type to be created. Refer to the Ansible [filesystem module documentation](https://docs.ansible.com/ansible/latest/collections/community/general/filesystem_module.html) for valid options.                                         |
 | `user`       |         | The user to be used for ownership of the filesystem mount path.                       |
 

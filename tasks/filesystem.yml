@@ -14,7 +14,7 @@
 
 - name: Create filesystem mount point
   file:
-    path: "{{ device.filesystem.mount_path }}"
+    path: "{{ device.filesystem.path }}"
     owner: "{{ device.filesystem.user }}"
     group: "{{ device.filesystem.group }}"
     mode: "{{ device.filesystem.mode }}"
@@ -22,7 +22,7 @@
 
 - name: "Mount filesystem for '{{ device.alias }}' iSCSI device"
   mount:
-    path: "{{ device.filesystem.mount_path }}"
+    path: "{{ device.filesystem.path }}"
     src: "UUID={{ filesystem_uuid }}"
     fstype: "{{ device.filesystem.type }}"
     opts: "_netdev,x-systemd.requires=iscsi.service"
@@ -34,9 +34,9 @@
     daemon_reload: true
   when: filesystem_created.changed
 
-- name: "Set ownership and permissions for '{{ device.alias }}' iSCSI mount path '{{ device.filesystem.mount_path }}'"
+- name: "Set ownership and permissions for '{{ device.alias }}' iSCSI mount path '{{ device.filesystem.path }}'"
   file:
-    path: "{{ device.filesystem.mount_path }}"
+    path: "{{ device.filesystem.path }}"
     owner: "{{ device.filesystem.user }}"
     group: "{{ device.filesystem.group }}"
     mode: "{{ device.filesystem.mode }}"
