@@ -8,18 +8,20 @@ An [Ansible Galaxy](https://galaxy.ansible.com/) role for configuring iSCSI devi
 ## Table of contents
 
 * [iSCSI Devices][1]
-  * [Filesystem Configuration][2]
-* [Reprovisioning Hosts][3]
-* [Example Requirements File][4]
-* [Example Playbook][5]
-* [License][6]
+  * [Raw Character Device Configuration][2]
+  * [Filesystem Configuration][3]
+* [Reprovisioning Hosts][4]
+* [Example Requirements File][5]
+* [Example Playbook][6]
+* [License][7]
 
 [1]: #iscsi-devices
-[2]: #filesystem-configuration
-[3]: #reprovisioning-hosts
-[4]: #example-requirements-file
-[5]: #example-playbook
-[6]: #license
+[2]: #raw-character-device-configuration
+[3]: #filesystem-configuration
+[4]: #reprovisioning-hosts
+[5]: #example-requirements-file
+[6]: #example-playbook
+[7]: #license
 
 ## iSCSI Devices
 
@@ -31,9 +33,12 @@ The `iscsi_devices_config` variable should be defined as a list of dictionaries,
 
 | Name                        | Default | Description                                                                           |
 |-----------------------------|---------|---------------------------------------------------------------------------------------|
-| `alias`                     |         | A unique alias for the storage device. This is used to create a symbolic link of the same name in `/dev` pointing at the raw character device node, and is used to give the path context when referenced in Informix configuration (e.g. a symbolic link `/dev/scud` carries more context than the character device node it points at, such as `/dev/raw/raw1`). |
-| `raw_character_device_path` |         | A unique raw character device node path. This should take the form `/dev/raw/raw<N>` where `<N>` is a non-negative integer value (e.g. `/dev/raw/raw1`, `/dev/raw/raw2` and so on). See [raw(8)](https://www.man7.org/linux/man-pages/man8/raw.8.html) for more information. |
-| `filesystem`                |         | _Optional_. A dictionary specifying filesystem configuration. See [Filesystem Configuration][2] for more information. |
+| `alias`                     |         | A unique alias for the storage device. This is used to create a symbolic link of the same name in `/dev` pointing at the raw character device node, and is used to give the path additional context (e.g. a symbolic link `/dev/scud` carries more context than the character device node it points at, such as `/dev/raw/raw1`). |
+| `raw_character_device`      |         | _Optional_. A dictionary specifying raw character device configuration. See [Raw Character Device Configuration][2] for more information. |
+| `filesystem`                |         | _Optional_. A dictionary specifying filesystem configuration. See [Filesystem Configuration][3] for more information. |
+
+> [!NOTE]
+> One of `filesystem` or `raw_character_device` must be provided for each item in the `iscsi_devices_config` list, but not both.
 
 ---
 
@@ -52,6 +57,15 @@ The internal host fact `iscsi_devices_vault_config` is set during execution of t
   }
 }
 ```
+### Raw Character Device Configuration
+
+If defined, the _optional_ `raw_character_device` parameter requires the following:
+
+| Name         | Default | Description                                                                           |
+|--------------|---------|---------------------------------------------------------------------------------------|
+| `group`      |         | The group to be used for ownership of the raw character device node.                  |
+| `owner`      |         | The user to be used for ownership of the raw character device node.                   |
+| `path`       |         | The path to the raw character device node. This should take the form `/dev/raw/raw<N>` where `<N>` is a non-negative integer value (e.g. `/dev/raw/raw1`, `/dev/raw/raw2` and so on). See [raw(8)](https://www.man7.org/linux/man-pages/man8/raw.8.html) for more information. |
 
 ### Filesystem Configuration
 
@@ -59,8 +73,11 @@ If defined, the _optional_ `filesystem` parameter requires the following:
 
 | Name         | Default | Description                                                                           |
 |--------------|---------|---------------------------------------------------------------------------------------|
-| `type`       |         | The filesystem type to be created. Refer to the Ansible [filesystem module documentation](https://docs.ansible.com/ansible/latest/collections/community/general/filesystem_module.html) for valid options. |
-| `mount_path` |         | The path where the filesystem will be mounted. This path will be created if it does not already exist with `0770` permissions and user and group ownership defined by the variables `informix_service_user` and `informix_service_group` respectively. |
+| `group`      |         | The group to be used for ownership of the filesystem mount path.                      |
+| `mode`       |         | The mode to be used for permissions fo the filesystem mount path.                     |
+| `owner`      |         | The user to be used for ownership of the filesystem mount path.                       |
+| `path`       |         | The path where the filesystem will be mounted. This path will be created if it does not already exist. |
+| `type`       |         | The filesystem type to be created. Refer to the Ansible [filesystem module documentation](https://docs.ansible.com/ansible/latest/collections/community/general/filesystem_module.html) for valid options.                                         |
 
 ## Reprovisioning Hosts
 
