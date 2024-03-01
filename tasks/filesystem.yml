@@ -15,9 +15,9 @@
 - name: Create filesystem mount point
   file:
     path: "{{ device.filesystem.mount_path }}"
-    owner: "{{ informix_service_user }}"
-    group: "{{ informix_service_group }}"
-    mode: 0770
+    owner: "{{ device.filesystem.user }}"
+    group: "{{ device.filesystem.group }}"
+    mode: "{{ device.filesystem.mode }}"
     state: directory
 
 - name: "Mount filesystem for '{{ device.alias }}' iSCSI device"
@@ -37,6 +37,6 @@
 - name: "Set ownership and permissions for '{{ device.alias }}' iSCSI mount path '{{ device.filesystem.mount_path }}'"
   file:
     path: "{{ device.filesystem.mount_path }}"
-    owner: "{{ informix_service_user }}"
-    group: "{{ informix_service_group }}"
-    mode: 0770
+    owner: "{{ device.filesystem.user }}"
+    group: "{{ device.filesystem.group }}"
+    mode: "{{ device.filesystem.mode }}"
