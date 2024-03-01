@@ -63,9 +63,9 @@ If defined, the _optional_ `raw_character_device` parameter requires the followi
 
 | Name         | Default | Description                                                                           |
 |--------------|---------|---------------------------------------------------------------------------------------|
-| `group`      |         | The group to be used for ownership of the raw character device node.                      |
+| `group`      |         | The group to be used for ownership of the raw character device node.                  |
+| `owner`      |         | The user to be used for ownership of the raw character device node.                   |
 | `path`       |         | The path to the raw character device node. This should take the form `/dev/raw/raw<N>` where `<N>` is a non-negative integer value (e.g. `/dev/raw/raw1`, `/dev/raw/raw2` and so on). See [raw(8)](https://www.man7.org/linux/man-pages/man8/raw.8.html) for more information. |
-| `user`       |         | The user to be used for ownership of the raw character device node.                       |
 
 ### Filesystem Configuration
 
@@ -75,9 +75,9 @@ If defined, the _optional_ `filesystem` parameter requires the following:
 |--------------|---------|---------------------------------------------------------------------------------------|
 | `group`      |         | The group to be used for ownership of the filesystem mount path.                      |
 | `mode`       |         | The mode to be used for permissions fo the filesystem mount path.                     |
+| `owner`      |         | The user to be used for ownership of the filesystem mount path.                       |
 | `path`       |         | The path where the filesystem will be mounted. This path will be created if it does not already exist. |
 | `type`       |         | The filesystem type to be created. Refer to the Ansible [filesystem module documentation](https://docs.ansible.com/ansible/latest/collections/community/general/filesystem_module.html) for valid options.                                         |
-| `user`       |         | The user to be used for ownership of the filesystem mount path.                       |
 
 ## Reprovisioning Hosts
 

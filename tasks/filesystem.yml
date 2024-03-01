@@ -15,7 +15,7 @@
 - name: Create filesystem mount point
   file:
     path: "{{ device.filesystem.path }}"
-    owner: "{{ device.filesystem.user }}"
+    owner: "{{ device.filesystem.owner }}"
     group: "{{ device.filesystem.group }}"
     mode: "{{ device.filesystem.mode }}"
     state: directory
@@ -37,6 +37,6 @@
 - name: "Set ownership and permissions for '{{ device.alias }}' iSCSI mount path '{{ device.filesystem.path }}'"
   file:
     path: "{{ device.filesystem.path }}"
-    owner: "{{ device.filesystem.user }}"
+    owner: "{{ device.filesystem.owner }}"
     group: "{{ device.filesystem.group }}"
     mode: "{{ device.filesystem.mode }}"
