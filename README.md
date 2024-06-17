@@ -72,7 +72,7 @@ If defined, the _optional_ `raw_character_device` parameter requires the followi
 > Each raw character device node is created via a `udev` rule and bound to the WWID of the iSCSI device. The `multipath` setting for each device influences how this `udev` rule behaves:
 >
 > - Multipath devices are assumed to be managed by [Device Mapper](https://www.kernel.org/doc/html/latest/admin-guide/device-mapper/index.html) and have a corresponding `/dev/mapper` device node assigned to them. This device node is used in combination with the `DM_UUID` device property value to determine the device's WWID value.
-> - Non-multipath devices are assumed to have kernel names matching `/dev/sd*[!0-9]` (i.e. they are _unpartitioned_) and `scsi_id` is used to determined the device's WWID value.
+> - Non-multipath devices are assumed to have kernel names matching `/dev/sd*[!0-9]` (i.e. they are _unpartitioned_) and `scsi_id` is used to determine the device's WWID value.
 >
 > Furthermore, a symbolic link will be created in `/dev` for each device that includes a `raw_character_device` parameter. The name of the symbolic link will match that of the `alias` in the device configuration and will point to the raw character device node. These symbolic links can be used in configuration files to distinguish different raw character devices (e.g. the symbolic link `/dev/scud` in place of `/dev/raw/raw1`).
 
