@@ -7,7 +7,7 @@
     owner: root
     group: root
     mode: 0600
-    trim_blocks: no
+    trim_blocks: yes
   vars:
     devices: "{{ iscsi_devices_config | selectattr('raw_character_device', 'defined') | list }}"
   notify:
