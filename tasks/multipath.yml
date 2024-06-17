@@ -7,7 +7,9 @@
     owner: root
     group: root
     mode: 0600
-    trim_blocks: no
+    trim_blocks: yes
+  vars:
+    multipath_devices: "{{ iscsi_devices_config | selectattr('multipath') | list }}"
   notify:
     - Restart multipath daemon
 

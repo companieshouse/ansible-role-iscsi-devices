@@ -33,7 +33,8 @@ The `iscsi_devices_config` variable should be defined as a list of dictionaries,
 
 | Name                        | Default | Description                                                                           |
 |-----------------------------|---------|---------------------------------------------------------------------------------------|
-| `alias`                     |         | A unique alias for the storage device. This is used to create a symbolic link of the same name in `/dev` pointing at the raw character device node, and is used to give the path additional context (e.g. a symbolic link `/dev/scud` carries more context than the character device node it points at, such as `/dev/raw/raw1`). |
+| `alias`                     |         | A unique alias for the storage device.                                                |
+| `multipath`                 |         | A boolean value indicating whether this device uses multipath I/O. Configuration for each multipath device will be added to the file `/etc/multipath.conf`. No configuration will be added for non-multipath devices. |
 | `raw_character_device`      |         | _Optional_. A dictionary specifying raw character device configuration. See [Raw Character Device Configuration][2] for more information. |
 | `filesystem`                |         | _Optional_. A dictionary specifying filesystem configuration. See [Filesystem Configuration][3] for more information. |
 
@@ -66,6 +67,14 @@ If defined, the _optional_ `raw_character_device` parameter requires the followi
 | `group`      |         | The group to be used for ownership of the raw character device node.                  |
 | `owner`      |         | The user to be used for ownership of the raw character device node.                   |
 | `path`       |         | The path to the raw character device node. This should take the form `/dev/raw/raw<N>` where `<N>` is a non-negative integer value (e.g. `/dev/raw/raw1`, `/dev/raw/raw2` and so on). See [raw(8)](https://www.man7.org/linux/man-pages/man8/raw.8.html) for more information. |
+
+> [!NOTE]
+> Each raw character device node is created via a `udev` rule and bound to the WWID of the iSCSI device. The `multipath` setting for each device influences how this `udev` rule behaves:
+>
+> - Multipath devices are assumed to be managed by [Device Mapper](https://www.kernel.org/doc/html/latest/admin-guide/device-mapper/index.html) and have a corresponding `/dev/mapper` device node assigned to them. This device node is used in combination with the `DM_UUID` device property value to determine the device's WWID value.
+> - Non-multipath devices are assumed to have kernel names matching `/dev/sd*[!0-9]` (i.e. they are _unpartitioned_) and `scsi_id` is used to determine the device's WWID value.
+>
+> Furthermore, a symbolic link will be created in `/dev` for each device that includes a `raw_character_device` parameter. The name of the symbolic link will match that of the `alias` in the device configuration and will point to the raw character device node. These symbolic links can be used in configuration files to distinguish different raw character devices (e.g. the symbolic link `/dev/scud` in place of `/dev/raw/raw1`).
 
 ### Filesystem Configuration
 
