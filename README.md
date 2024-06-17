@@ -33,7 +33,8 @@ The `iscsi_devices_config` variable should be defined as a list of dictionaries,
 
 | Name                        | Default | Description                                                                           |
 |-----------------------------|---------|---------------------------------------------------------------------------------------|
-| `alias`                     |         | A unique alias for the storage device. This is used to create a symbolic link of the same name in `/dev` pointing at the raw character device node, and is used to give the path additional context (e.g. a symbolic link `/dev/scud` carries more context than the character device node it points at, such as `/dev/raw/raw1`). |
+| `alias`                     |         | A unique alias for the storage device.                                                |
+| `multipath`                 |         | A boolean value indicating whether this device uses multipath I/O. Configuration for each multipath device will be added to the file `/etc/multipath.conf`. No configuration will be added for non-multipath devices. |
 | `raw_character_device`      |         | _Optional_. A dictionary specifying raw character device configuration. See [Raw Character Device Configuration][2] for more information. |
 | `filesystem`                |         | _Optional_. A dictionary specifying filesystem configuration. See [Filesystem Configuration][3] for more information. |
 
@@ -66,6 +67,9 @@ If defined, the _optional_ `raw_character_device` parameter requires the followi
 | `group`      |         | The group to be used for ownership of the raw character device node.                  |
 | `owner`      |         | The user to be used for ownership of the raw character device node.                   |
 | `path`       |         | The path to the raw character device node. This should take the form `/dev/raw/raw<N>` where `<N>` is a non-negative integer value (e.g. `/dev/raw/raw1`, `/dev/raw/raw2` and so on). See [raw(8)](https://www.man7.org/linux/man-pages/man8/raw.8.html) for more information. |
+
+> [!NOTE]
+> A symbolic link will be created in `/dev` pointing to the raw character device node. The name of the symbolic link will match that of the `alias` in the device configuration. These symbolic links can be used in configuration files to distinguish different raw character devices (e.g. the symbolic link `/dev/scud` in place of `/dev/raw/raw1`).
 
 ### Filesystem Configuration
 

@@ -11,4 +11,4 @@
     cmd: "{{ item }}"
   loop:
     - udevadm control --reload
-    - udevadm trigger
+    - udevadm trigger -c add
