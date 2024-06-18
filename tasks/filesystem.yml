@@ -7,7 +7,7 @@
 - name: "Create filesystem for '{{ device.alias }}' iSCSI device"
   filesystem:
     fstype: "{{ device.filesystem.type }}"
-    dev: "/dev/mapper/{{ device.alias }}"
+    dev: "/dev/disk/by-id/scsi-{{ iscsi_devices_vault_config[ansible_hostname]['iscsi_device_wwids'][device.alias] }}"
     opts: "-m uuid={{ filesystem_uuid }}"
     force: true
   register: filesystem_created
