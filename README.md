@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> This standalone Ansible Galaxy role has been deprecated and replaced with an `iscsi_devices` role belonging to the Ansible Collection [companieshouse.middleware](https://github.com/companieshouse/ansible-collection-middleware).
+
 # Ansible Role: iSCSI Devices
 
 An [Ansible Galaxy](https://galaxy.ansible.com/) role for configuring iSCSI devices. Includes scanning for iSCSI targets, configuring multipath and udev rules, creating raw character device nodes, and optionally creating filesystems.
